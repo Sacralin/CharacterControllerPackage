@@ -53,6 +53,33 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SpaceBar"",
+                    ""type"": ""Value"",
+                    ""id"": ""71ba5b41-f23e-4e23-86d8-322dbd0624ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseWheelButton"",
+                    ""type"": ""Value"",
+                    ""id"": ""57bfc7ce-8dd7-4516-b0d1-3233753626ed"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Value"",
+                    ""id"": ""e8838cb0-b014-4fac-9e6d-8499032e1cb8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -143,6 +170,39 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
                     ""action"": ""MouseMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a378a507-8598-4f59-91aa-8c4d94aa6e8d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpaceBar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3818229-a168-4d0c-8a26-4baa3ef09850"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseWheelButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50e60982-3174-416e-886d-cc64cb261989"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -154,6 +214,9 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
         m_CharacterControls_Walk = m_CharacterControls.FindAction("Walk", throwIfNotFound: true);
         m_CharacterControls_Run = m_CharacterControls.FindAction("Run", throwIfNotFound: true);
         m_CharacterControls_MouseMovement = m_CharacterControls.FindAction("MouseMovement", throwIfNotFound: true);
+        m_CharacterControls_SpaceBar = m_CharacterControls.FindAction("SpaceBar", throwIfNotFound: true);
+        m_CharacterControls_MouseWheelButton = m_CharacterControls.FindAction("MouseWheelButton", throwIfNotFound: true);
+        m_CharacterControls_Crouch = m_CharacterControls.FindAction("Crouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +281,9 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
     private readonly InputAction m_CharacterControls_Walk;
     private readonly InputAction m_CharacterControls_Run;
     private readonly InputAction m_CharacterControls_MouseMovement;
+    private readonly InputAction m_CharacterControls_SpaceBar;
+    private readonly InputAction m_CharacterControls_MouseWheelButton;
+    private readonly InputAction m_CharacterControls_Crouch;
     public struct CharacterControlsActions
     {
         private @FirstAndThirdPersonCharacterInputs m_Wrapper;
@@ -225,6 +291,9 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
         public InputAction @Walk => m_Wrapper.m_CharacterControls_Walk;
         public InputAction @Run => m_Wrapper.m_CharacterControls_Run;
         public InputAction @MouseMovement => m_Wrapper.m_CharacterControls_MouseMovement;
+        public InputAction @SpaceBar => m_Wrapper.m_CharacterControls_SpaceBar;
+        public InputAction @MouseWheelButton => m_Wrapper.m_CharacterControls_MouseWheelButton;
+        public InputAction @Crouch => m_Wrapper.m_CharacterControls_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -243,6 +312,15 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
             @MouseMovement.started += instance.OnMouseMovement;
             @MouseMovement.performed += instance.OnMouseMovement;
             @MouseMovement.canceled += instance.OnMouseMovement;
+            @SpaceBar.started += instance.OnSpaceBar;
+            @SpaceBar.performed += instance.OnSpaceBar;
+            @SpaceBar.canceled += instance.OnSpaceBar;
+            @MouseWheelButton.started += instance.OnMouseWheelButton;
+            @MouseWheelButton.performed += instance.OnMouseWheelButton;
+            @MouseWheelButton.canceled += instance.OnMouseWheelButton;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -256,6 +334,15 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
             @MouseMovement.started -= instance.OnMouseMovement;
             @MouseMovement.performed -= instance.OnMouseMovement;
             @MouseMovement.canceled -= instance.OnMouseMovement;
+            @SpaceBar.started -= instance.OnSpaceBar;
+            @SpaceBar.performed -= instance.OnSpaceBar;
+            @SpaceBar.canceled -= instance.OnSpaceBar;
+            @MouseWheelButton.started -= instance.OnMouseWheelButton;
+            @MouseWheelButton.performed -= instance.OnMouseWheelButton;
+            @MouseWheelButton.canceled -= instance.OnMouseWheelButton;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -278,5 +365,8 @@ public partial class @FirstAndThirdPersonCharacterInputs: IInputActionCollection
         void OnWalk(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnMouseMovement(InputAction.CallbackContext context);
+        void OnSpaceBar(InputAction.CallbackContext context);
+        void OnMouseWheelButton(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }
