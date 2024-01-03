@@ -9,7 +9,7 @@ public class MouseLook : MonoBehaviour
     
     
     FirstAndThirdPersonCharacterInputs inputActions;
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 80f;
     public Transform playerBody;
 
     float xRotation = 0f;

@@ -16,7 +16,15 @@ public class CharacterMovement : MonoBehaviour
     float runSpeed = 4f;
     float currentSpeed;
     float gravity = -9.81f;
-    float jumpForce = 2;
+    public float jumpForce = 4f;
+    
+    bool isCrouched;
+    float standingHeight = 1.8f;
+    float crouchedHeight = 1.3f;
+    float standingCenter = 0.98f;
+    float crouchedCenter = 0.7f;
+    
+
 
     //float rotationFactorPerFrame = 15.0f;
 
@@ -41,39 +49,39 @@ public class CharacterMovement : MonoBehaviour
     {
         if (inputActions.CharacterControls.SpaceBar.triggered && characterController.isGrounded)
         {
-            animator.SetBool("isJumping", true);
             moveDirection.y = jumpForce;
-            
+            animator.SetBool("isJumping", true);
         }
-        else
-        {
-            animator.SetBool("isJumping", false);
-        }
+    }
+
+    //this method is called from the jump animation
+    public void OnJumpAnimationCompleted()
+    {
+        animator.SetBool("isJumping", false);
     }
 
     private void HandleMovementInput()
     {
-        bool runPressed = inputActions.CharacterControls.Run.ReadValue<float>() > 0;
+        bool runPressed = inputActions.CharacterControls.Run.ReadValue<float>() > 0; //is run pressed
+        if (isCrouched) { currentSpeed = walkSpeed; } //if crouched limit current speed to walkspeed
+        else { currentSpeed = runPressed ? runSpeed : walkSpeed; } // else if run pressed apply run speed, if not then apply walk speed
+        
+        currentInput = inputActions.CharacterControls.Walk.ReadValue<Vector2>(); // read input values from composite vector 2 inputs 
+        
+        float moveDirectionY = moveDirection.y; 
+        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.y * currentSpeed) + 
+            (transform.TransformDirection(Vector3.right) * currentInput.x * currentSpeed);
 
-        currentSpeed = runPressed ? runSpeed : walkSpeed;
-        if(animator.GetBool("isCrouched") == true) { currentSpeed = walkSpeed; }
-        currentInput = inputActions.CharacterControls.Walk.ReadValue<Vector2>();
-
-        float moveDirectionY = moveDirection.y;
-        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.y) + (transform.TransformDirection(Vector3.right) * currentInput.x);
         moveDirection.y = moveDirectionY;
-        if (!characterController.isGrounded) { moveDirection.y += gravity * Time.deltaTime; }
-        characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
+        
+        if (!characterController.isGrounded) { moveDirection.y += gravity * Time.deltaTime; } //apply gravity
+        characterController.Move(moveDirection * Time.deltaTime);
     }
 
     private void Crouch()
     {
-        bool isCrouched = animator.GetBool("isCrouched");
-        float standingHeight = 1.8f;
-        float crouchedHeight = 1.3f;
-        float standingCenter = 0.98f;
-        float crouchedCenter = 0.7f;
 
+        isCrouched = animator.GetBool("isCrouched");
 
         if (inputActions.CharacterControls.Crouch.triggered)
         {

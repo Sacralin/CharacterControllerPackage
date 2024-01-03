@@ -196,19 +196,12 @@ public class TwoDimentionalAnimationStateController : MonoBehaviour
         bool runPressed = inputActions.CharacterControls.Run.ReadValue<float>() > 0;
 
         //set current maxVelocity
-        float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
-
-        bool isCrouched = animator.GetBool("isCrouched");
-        if (isCrouched == true)
-        {
-            currentMaxVelocity = maximumWalkVelocity;
-        }
-
+        float currentMaxVelocity;
+        if (animator.GetBool("isCrouched")) { currentMaxVelocity = maximumWalkVelocity; }
+        else { currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity; }
 
         ChangeVelocity(forwardPressed, leftPressed, rightPressed, backwardPressed, runPressed, currentMaxVelocity);
         LockOrResetVelocity(forwardPressed, leftPressed, rightPressed, backwardPressed, runPressed, currentMaxVelocity);
-        
-        
 
         animator.SetFloat(velocityZHash, velocityZ);
         animator.SetFloat(velocityXHash, velocityX);
