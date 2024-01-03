@@ -515,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 227980258}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalPosition: {x: -0.00999999, y: 0.9, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -573,8 +573,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5931645fab84b88478898ee04603102c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 80
+  mouseSensitivity: 50
   playerBody: {fileID: 543450651746467247}
+  lookUpMaxAngle: 90
+  lookDownMaxAngle: 90
 --- !u!1 &284220708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2223,8 +2225,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000036499175, y: -2.2737368e-13, z: -1.3213829e-16, w: 1}
-  m_LocalPosition: {x: 0.000044226646, y: 1.8075277, z: 0.185}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39, y: 1.6600921, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2397,7 +2399,7 @@ Transform:
   m_GameObject: {fileID: 1202780860}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000000036499175, y: -2.2737368e-13, z: -1.3213829e-16, w: 1}
-  m_LocalPosition: {x: 0.000044226646, y: 1.603, z: 0.185}
+  m_LocalPosition: {x: 0.000044226646, y: 1.693, z: 0.065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2455,8 +2457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5931645fab84b88478898ee04603102c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 80
+  mouseSensitivity: 50
   playerBody: {fileID: 543450651746467247}
+  lookUpMaxAngle: 90
+  lookDownMaxAngle: 90
 --- !u!1 &1244119224
 GameObject:
   m_ObjectHideFlags: 0
@@ -3876,8 +3880,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5931645fab84b88478898ee04603102c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 50
   playerBody: {fileID: 543450651746467247}
+  lookUpMaxAngle: 90
+  lookDownMaxAngle: 90
 --- !u!1 &9171100745979069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,7 +4111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0d491c948ddd54cbade536ead822dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 2
+  runSpeed: 4
+  gravity: -9.81
   jumpForce: 4
+  standingHeight: 1.8
+  crouchedHeight: 1.3
+  standingRadius: 0.25
+  crouchedRadius: 0.47
 --- !u!143 &919132147761882904
 CharacterController:
   m_ObjectHideFlags: 0

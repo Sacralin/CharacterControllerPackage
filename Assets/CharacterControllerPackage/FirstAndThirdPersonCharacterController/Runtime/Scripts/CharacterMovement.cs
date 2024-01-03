@@ -1,33 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    FirstAndThirdPersonCharacterInputs inputActions;
-    CharacterController characterController;
-    Animator animator;
+    private FirstAndThirdPersonCharacterInputs inputActions;
+    private CharacterController characterController;
+    private Animator animator;
     
-    Vector3 moveDirection;
-    Vector2 currentInput;
-    float walkSpeed = 2f;
-    float runSpeed = 4f;
-    float currentSpeed;
-    float gravity = -9.81f;
+    //movement settings
+    private Vector3 moveDirection;
+    private Vector2 currentInput;
+    public float walkSpeed = 2f;
+    public float runSpeed = 4f;
+    private float currentSpeed;
+    public float gravity = -9.81f;
     public float jumpForce = 4f;
     
-    bool isCrouched;
-    float standingHeight = 1.8f;
-    float crouchedHeight = 1.3f;
-    float standingCenter = 0.98f;
-    float crouchedCenter = 0.7f;
+    //collision mesh settings 
+    private bool isCrouched;
+    public float standingHeight = 1.8f;
+    public float crouchedHeight = 1.3f;
+    private float standingCenterY = 0.98f;
+    private float crouchedCenterY = 0.7f;
+    private float crouchedCenterZOffset = 0.2f;
+    public float standingRadius = 0.25f;
+    public float crouchedRadius = 0.47f;
     
-
-
-    //float rotationFactorPerFrame = 15.0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +51,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    //this method is called from the jump animation
+    //this method is called from the jump animation once the animation is complete.
     public void OnJumpAnimationCompleted()
     {
         animator.SetBool("isJumping", false);
@@ -68,31 +65,26 @@ public class CharacterMovement : MonoBehaviour
         
         currentInput = inputActions.CharacterControls.Walk.ReadValue<Vector2>(); // read input values from composite vector 2 inputs 
         
-        float moveDirectionY = moveDirection.y; 
-        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.y * currentSpeed) + 
+        float moveDirectionY = moveDirection.y; //stores Y
+        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.y * currentSpeed) +  //applies input from player
             (transform.TransformDirection(Vector3.right) * currentInput.x * currentSpeed);
-
-        moveDirection.y = moveDirectionY;
+        moveDirection.y = moveDirectionY; //reapplys Y 
         
         if (!characterController.isGrounded) { moveDirection.y += gravity * Time.deltaTime; } //apply gravity
-        characterController.Move(moveDirection * Time.deltaTime);
+        characterController.Move(moveDirection * Time.deltaTime); //apply movement to player character
     }
 
     private void Crouch()
     {
-
-        isCrouched = animator.GetBool("isCrouched");
-
-        if (inputActions.CharacterControls.Crouch.triggered)
+        
+        if (inputActions.CharacterControls.Crouch.triggered) // if crouch is triggered switch settings 
         {
+            isCrouched = animator.GetBool("isCrouched"); //check if currently crouched
             animator.SetBool("isCrouched", !isCrouched);
-            characterController.height = isCrouched ? standingHeight : crouchedHeight;
-            characterController.center = isCrouched ? new Vector3(0, standingCenter, 0) : new Vector3(0, crouchedCenter, 0);
-
+            characterController.height = isCrouched ? crouchedHeight : standingHeight;
+            characterController.center = isCrouched ? new Vector3(0, crouchedCenterY, crouchedCenterZOffset) : new Vector3(0, standingCenterY, 0);
+            characterController.radius = isCrouched ? crouchedRadius : standingRadius;
         }
     }
     
-
-
-
 }
