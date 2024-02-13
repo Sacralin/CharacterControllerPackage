@@ -8,13 +8,13 @@ public class TwoDimentionalAnimationStateController : MonoBehaviour
 {
     Animator animator;
     FirstAndThirdPersonCharacterInputs inputActions;
-    float velocityZ = 0f;
+    public float velocityZ = 0f;
     float velocityX = 0f;
     public float acceleration = 2.0f;
     public float deceleration = 2.0f;
     public float maximumWalkVelocity = 0.5f;
     public float maximumRunVelocity = 2.0f;
-
+    
     //increase performance
     int velocityZHash;
     int velocityXHash;
@@ -31,7 +31,7 @@ public class TwoDimentionalAnimationStateController : MonoBehaviour
         velocityXHash = Animator.StringToHash("Velocity X");
     }
 
-    void ChangeVelocity(bool forwardPressed, bool leftPressed, bool rightPressed, bool backwardPressed, bool runPressed, float currentMaxVelocity)
+    public void ChangeVelocity(bool forwardPressed, bool leftPressed, bool rightPressed, bool backwardPressed, bool runPressed, float currentMaxVelocity)
     {
         //if player pressed forward, increase velocity in Z direction
         if (forwardPressed && velocityZ < currentMaxVelocity)
