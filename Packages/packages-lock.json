@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.2322034.charactercontrollerpackage": {
+      "version": "file:K:/PM902/CharacterControllerPackage",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.inputsystem": "1.7.0",
+        "com.unity.cinemachine": "2.9.7",
+        "com.unity.ai.navigation": "1.1.5"
+      }
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,

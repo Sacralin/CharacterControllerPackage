@@ -3426,7 +3426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461571590134809557, guid: 8592e91f1fd2bee47ab7ffa09ea896b5, type: 3}
       propertyPath: pointAndClickCameraOnly
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8285356124313934126, guid: 8592e91f1fd2bee47ab7ffa09ea896b5, type: 3}
       propertyPath: mainCamera
